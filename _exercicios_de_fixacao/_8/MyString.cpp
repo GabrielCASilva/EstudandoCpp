@@ -111,8 +111,9 @@ std::ostream &operator<<(std::ostream &os, const MyString &rhs)
 
 std::istream &operator>>(std::istream &in, MyString &rhs)
 {
-    char buff[1000];
-    in >> buff;
-    rhs = std::move(MyString{buff});
+    char *buff = new char[1000];
+    in.getline(buff, 1000);
+    rhs = MyString{buff};
+    delete[] buff;
     return in;
 }
